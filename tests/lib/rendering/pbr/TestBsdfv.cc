@@ -352,9 +352,6 @@ TestBsdfv::testDwaFabricShadowTerminator()
     test.mColor = {color.r, color.g, color.b};
 
     const double tolerance = 1.0e-5;
-    // CUSTOM uses 0.14922f in C++ and 0.14944f in ISPC. Allow the existing
-    // difference in corrected color for these inputs without changing either formula.
-    const double customColorTolerance = 1.0e-4;
 
     // Correction disabled.
     test.mShadowTerminatorFix = ispc::SHADOW_TERMINATOR_FIX_OFF;
@@ -374,11 +371,11 @@ TestBsdfv::testDwaFabricShadowTerminator()
     ispc::TestBsdf_evalFabricShadowTerminator(&test);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(
-        scalarOn.r, test.mResult.r, customColorTolerance);
+        scalarOn.r, test.mResult.r, tolerance);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(
-        scalarOn.g, test.mResult.g, customColorTolerance);
+        scalarOn.g, test.mResult.g, tolerance);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(
-        scalarOn.b, test.mResult.b, customColorTolerance);
+        scalarOn.b, test.mResult.b, tolerance);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(
         pdfOn, test.mPdf, tolerance);
 
